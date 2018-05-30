@@ -1,0 +1,67 @@
+#character{
+  display: flex;
+}
+/* ---------first-column---------- */
+#first-column{
+  width: 40%;
+}
+/* ------------Top of form--------- */
+
+#top-left > select, input{
+  margin: 0 auto;
+  margin: 1em 0;
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+}
+
+/*  --------stats-----------*/
+#a-column{
+  width: 40%;
+}
+#b-column{
+  width: 29%;
+}
+#c-column{
+  width: 29%;
+}
+
+#stats{
+  display: flex;
+}
+
+#stats label {
+  width: 20%;
+}
+#stats input {
+  width: 80%;
+}
+.bc-box{
+  margin: 0 auto;
+  width: 50%;
+  padding: .5em;
+  height: 10%;
+  border: 1px solid black;
+}
+/* -----------second-column---------- */
+
+/* ---------hp--------- */
+#hp-box{
+  width: 2em;
+  margin-bottom:
+}
+
+/* ----------third-column--------------- */
+#third-column{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.box{
+  border:1px solid black;
+  padding: 1em;
+}
+/* ----------column4-------- */
+#fourth-column{
+  border: 1px solid black;
+}

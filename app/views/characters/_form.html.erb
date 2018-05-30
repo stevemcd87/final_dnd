@@ -1,0 +1,86 @@
+ <%= form_with(model: character, local: true) do |form| %>
+   <% if character.errors.any? %>
+     <div id="error_explanation">
+       <h2><%= pluralize(character.errors.count, "error") %> prohibited this character from being saved:</h2>
+
+       <ul>
+       <% character.errors.full_messages.each do |message| %>
+         <li><%= message %></li>
+       <% end %>
+       </ul>
+     </div>
+   <% end %>
+
+
+
+   <div id="character">
+     <div id="first-column">
+       <div id="top-form">
+         <div id="top-left">
+           <%= form.text_field :name , id: "char-name", placeholder:"Name" %>
+          <%= form.select :race, options_for_select(@races), prompt: "Select a Race" , id: "char-race"%>
+          <%= form.select :job, options_for_select(@jobs), prompt: "Select a Job" , id: "char-job"%>
+         </div>
+       </div>
+
+       <div id="stats">
+         <div id="a-column">
+           <%= form.label :str%>
+          <%= form.text_field :str, class:"char-attr", id:"char-str" %>
+          <%= form.label :dex %>
+          <%= form.text_field :dex, class:"char-attr", id:"char-dex" %>
+          <%= form.label :int %>
+          <%= form.text_field :int, class:"char-attr", id:"char-int" %>
+          <%= form.label :con %>
+          <%= form.text_field :con, class:"char-attr", id:"char-con" %>
+          <%= form.label :cha %>
+          <%= form.text_field :cha, class:"char-attr", id:"char-cha" %>
+          <%= form.label :wis %>
+          <%= form.text_field :wis, class:"char-attr", id:"char-wis" %>
+        </div>
+         <div id="b-column"></div>
+         <div id="c-column"></div>
+       </div>
+       <button type="button" id="accept-stats">Accept Stats</button>
+       <div id="error-list"></div>
+     </div>
+
+       <!-- <div id="selected-stats"></div> -->
+
+
+     <div id="second-column">
+         <input  id="hp-box" class="box" type="text" placeholder="HP" readonly="true">
+       <div id="roll-stats">
+         <button type="button" id="roll-dice">ROLL <span id="roll-amount"></span> </button>
+         <ul id="rolled-nums" ></ul>
+         <button type="button" id="accept-button" disabled>Accept</button>
+       </div>
+     </div>
+
+     <div id="third-column"></div>
+     <div id="fourth-column">
+       <div id="selected-char-top">header</div>
+
+       <div id="selected-char-head">
+        <!-- GABES CODE -->
+
+       </div>
+
+
+
+     </div>
+
+   </div>
+
+
+
+
+
+ <%# @stats.each do %>
+
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
