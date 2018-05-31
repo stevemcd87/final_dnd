@@ -49,7 +49,7 @@
 
 
      <div id="second-column">
-         <input  id="hp-box" class="box" type="text" placeholder="HP" readonly="true">
+         <div id="hp-box" >Helath Points</div>
        <div id="roll-stats">
          <button type="button" id="roll-dice">ROLL <span id="roll-amount"></span> </button>
          <ul id="rolled-nums" ></ul>
@@ -57,8 +57,16 @@
        </div>
      </div>
 
-     <div id="third-column"></div>
-     <div id="fourth-column">
+     <div id="third-column">
+       <div id="init" class="box">Initiative <span id="init-span"></span> </div>
+       <div id="speed" class="box">Speed
+         <span id="speed-span"></span>
+       </div>
+       <div id="armor-class" class="box">Armor Class
+        <span id="armor-span"></span> </div>
+       <div id="prof" class="box">Proficiency <span id="prof-span">2</span> </div>
+     </div>
+     <div id="fourth-column" class="box">
        <div id="selected-char-top">header</div>
 
        <div id="selected-char-head">

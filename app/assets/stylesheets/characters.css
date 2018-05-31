@@ -48,7 +48,8 @@
 /* ---------hp--------- */
 #hp-box{
   width: 2em;
-  margin-bottom:
+  padding: 2em;
+  border: 1px solid black;
 }
 
 /* ----------third-column--------------- */

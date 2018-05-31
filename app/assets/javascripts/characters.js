@@ -5,20 +5,30 @@ let Attributes = ["STR","DEX","CON","INT","WIS","CHA"];
 let column3 = ["Initiative", "Speed", "Armor Class", "Proficiency"];
 
 $('document').ready(function(){
+let conMod;
   let errorList = [];
   let statRoll;
   let selectedStatRoll;
+  let selectedBaseStat;
+  let selectedIJob;
+  let selectedJob;
   let optionsLeft;
   let rollAmount = 5;
   $('#roll-amount').html(`${rollAmount}`);
 
   // -------CREATE COLUMN B
-  Attributes.forEach((val) => {
-    $('#b-column').append(`<div class="bc-box"></div>`)
+  Attributes.forEach((val, ind) => {
+    $('#b-column').append(`<div class="bc-box" id="b-${ind+1}"></div>`)
   });
+
+
+  let columnB = $('b-column');
+  console.log('columnB');
+  console.log(columnB);
+
   // -------CREATE COLUMN C
-  Attributes.forEach((val) => {
-    $('#c-column').append(`<div class="bc-box"></div>`)
+  Attributes.forEach((val,ind) => {
+    $('#c-column').append(`<div class="bc-box" id="c-${ind+1}"></div>`)
   });
 
 // ----------------CLICKING ROLL BUTTON
@@ -32,11 +42,90 @@ $('document').ready(function(){
         statRoll.forEach((val) => {
           $('#rolled-nums').append(`<li class="r-nums ">${val}</li>`);
         })
-        if (rollAmount === 0){
+        if (rollAmount === 0) {
           $("#roll-dice").prop("disabled", true);
         }
       }
   }) // End of roll dice click
+//-------------SELECT RACE CHANGE---------
+$('#character_race').change((e)=>{
+  const races = usersChoices.races;
+  let raceValue = e.currentTarget.value;
+  let raceStats;
+//------ TO GET MATCHING STATS
+  for (let i = 0; i < races.length; i += 1 ) {
+    if (raceValue === races[i].name ){
+      raceStats = races[i];
+      selectedBaseStat = raceStats;
+    }
+  }
+// ------ TO PUT STATS IN COLUMN B----
+for (let i = 0; i < Attributes.length; i += 1) {
+  for (let stat in raceStats) {
+
+    for (let i2 = 1; i2 <= Attributes.length; i2 += 1) {
+      switch (i2) {
+        case 1:
+          if(stat === 'str'){
+            $(`#b-${i2}`).html(`${raceStats[stat]}`);
+          }
+          break;
+        case 2:
+          if(stat === 'dex'){
+            $(`#b-${i2}`).html(`${raceStats[stat]}`);
+          }
+          break;
+        case 3:
+          if(stat === 'int'){
+            $(`#b-${i2}`).html(`${raceStats[stat]}`);
+          }
+          break;
+        case 4:
+          if(stat === 'con'){
+            $(`#b-${i2}`).html(`${raceStats[stat]}`);
+          }
+          break;
+        case 5:
+          if(stat === 'cha'){
+            $(`#b-${i2}`).html(`${raceStats[stat]}`);
+          }
+          break;
+        case 6:
+          if(stat === 'wis'){
+            $(`#b-${i2}`).html(`${raceStats[stat]}`);
+          }
+          break;
+        default:
+          return "something Wrong"
+      }
+    }
+  }
+}
+})//  ---END OF RACE CHANGE
+// -------- JOB CHANGE-------
+
+
+
+
+
+
+$('#character_job').change((e)=>{
+  console.log('change');
+  console.log(e);
+  selectedIJob = e.currentTarget.value;
+  console.log(selectedIJob);
+})
+
+
+
+
+
+
+
+
+
+
+
 
 // CLICKING ACCEPT ROLL BUTTON
   $('#accept-button').click(function(){
@@ -58,6 +147,7 @@ $('#error-list').html("");
     let errArr = checkForFilledStats('.char-attr');
       errorList.push(`${errArr.join(', ')} are empty. All must be filled in.`);
   } else {
+
     optionsLeft = selectedStatRoll.slice();
     for(let i = 0; i < Attributes.length; i += 1){
       let thisID = $('.char-attr')[i].id.split('-')[1];
@@ -74,7 +164,7 @@ $('#error-list').html("");
       }
     }
   }
-  // -- IF ERRORS--
+  // ------- IF ERRORS----
   if (errorList.length > 0) {
     errorList.forEach((val)=> {
       $('#error-list').append(`<p class="error">${val}</p>`);
@@ -82,33 +172,119 @@ $('#error-list').html("");
     if (optionsLeft){
       $('#error-list').append(`<p class=error>Available Options are : <strong>${optionsLeft.join(' - ')}</strong></p>`);
     }
-  } else { // IF NO ERRORS
+  } else { // ----------IF NO ERRORS-----------
+
+    let acceptedStats = [];
+    // let columnC =
+    console.log(columnB);
     $("#accept-stats").prop("disabled", true);
     $("#accept-stats").html("Stats Accepted");
-    //
-    console.log(  $('.char-attr'));
+
+    // ------- Create inputValues OBJECT----
     for(let i = 0; i < Attributes.length; i += 1){
       let thisID = $('.char-attr')[i].id.split('-')[1];
       let thisValue = $('.char-attr')[i].value;
+      let obj = {};
+      obj[thisID] = thisValue;
+      acceptedStats.push(obj);
       $('.char-attr')[i].readOnly = true;
       $('#roll-stats').html("");
     }
 
-  }
-  // $('#hp-button').append(`${}`)
+    // for (let i = 1; i <= Attributes.length; i += 1) {
+      acceptedStats.forEach((stat)=>{
+// console.log(On);
+        let thisKey = Object.keys(stat)[0];
+        let thisValue = Object.values(stat)[0];
+        for (let attr in selectedBaseStat) {
+          if (attr === thisKey){
+            // for (let i = 1; i <= Attributes.length; i += 1) {
+            let totalMod = +selectedBaseStat[attr] + +thisValue
+            switch (thisKey) {
+              case 'str':
+                $(`#c-1`).html(`${totalMod} `) ;
+
+                break;
+              case 'dex':
+                  $(`#c-2`).html(`${totalMod}`);
+
+                break;
+              case 'int':
+                  $(`#c-3`).html(`${totalMod}`);
+
+                break;
+              case 'con':
+              conMod = totalMod;
+                  $(`#c-4`).html(`${totalMod}`);
+
+                break;
+              case 'cha':
+                  $(`#c-5`).html(`${totalMod}`);
+
+                break;
+              case 'wis':
+                  $(`#c-6`).html(`${totalMod}`);
+
+                break;
+              default:
+                return "something Wrong"
+            }
+
+            // }
+
+          }
+        }
+      })
+    // }
+    //-----HP THING-----
+    usersChoices.jobs.forEach((job)=>{
+
+      if (job.name === selectedIJob){
+        selectedJob = job;
+      }
+    });
+console.log(selectedJob);
+    let hp = +selectedJob.health + +conMod;
+    $('#hp-box').append(`${hp}`);
+
+
+
+
+
+
+
+//----------forth COLUMN------
+console.log(acceptedStats);
+let dexMod = acceptedStats[1].dex;
+
+$('#init-span').append(`${dexMod}`);
+
+
+// ----speed-span
+let speedMod = selectedBaseStat.speed;
+$('#speed-span').append(`${speedMod}`);
+
+let armorMod = +selectedJob.armor_class["0"] + +dexMod;
+$('#armor-span').append(`${armorMod}`);
+
+
+
+
+
+
+
+  } // END OF NO ERRORS
 }); // ------------END OF BUTTON to ACCEPT STATS------------
 $("#char-name").blur(()=>{
   let val = $("#char-name")[0].value
   if (val ===""){
-
   }
-  console.log(val);
 });
 
   // ------------- CREATE THIRD COLUMN-----
-  column3.forEach((val) => {
-    $('#third-column').append(`<div class="box"><span class="box-header">${val}</span></div>`)
-  });
+  // column3.forEach((val) => {
+  //   $('#third-column').append(`<div class="box"><span class="box-header">${val}</span></div>`)
+  // });
 // ------------COLUMN FOURTH COLUMN-------
 
 });// ---------------END OF DOCUMNET READY-----------
@@ -123,45 +299,25 @@ const PROFICIENCY = 2;
 
 const usersChoices = {
   races: [
-    {
-      dwarf : {name:"Dwarf", str:0, dex:0, con:2, int:0, wis:0, cha:0, speed:20}
-    },
-    {
-      elf : {name:"Elf", str:0, dex:2, con:0, int:0, wis:0, cha:0, speed:30}
-    },
-    {
-      gnome : {name:"Gnome", str:0, dex:0, con:0, int:2, wis:0, cha:0, speed:20}
-    },
-    {
-      halfElf : {name:"Half Elf", str:0, dex:0, con:0, int:0, wis:0, cha:2, speed:30}
-    },
-    {
-      halfOrc : {name:"Half Orc", str:2, dex:0, con:1, int:0, wis:0, cha:0, speed:30}
-    },
-    {
-      halfling : {name:"Halfling", str:0, dex:2, con:0, int:0, wis:0, cha:0, speed:20}
-    },
-    {
-      human :{name:"Human", str:1, dex:1, con:1, int:1, wis:1, cha:1, speed:30}
-    },
-    {
-      orc : {name:"Orc", str:2, dex:0, con:1, int:-2, wis:0, cha:0, speed:30}
-    }
+    {name:"Dwarf", str:0, dex:0, con:2, int:0, wis:0, cha:0, speed:20},
+    {name:"Elf", str:0, dex:2, con:0, int:0, wis:0, cha:0, speed:30},
+    {name:"Gnome", str:0, dex:0, con:0, int:2, wis:0, cha:0, speed:20},
+    {name:"Half Elf", str:0, dex:0, con:0, int:0, wis:0, cha:2, speed:30},
+    {name:"Half Orc", str:2, dex:0, con:1, int:0, wis:0, cha:0, speed:30},
+    {name:"Halfling", str:0, dex:2, con:0, int:0, wis:0, cha:0, speed:20},
+    {name:"Human", str:1, dex:1, con:1, int:1, wis:1, cha:1, speed:30},
+    {name:"Orc", str:2, dex:0, con:1, int:-2, wis:0, cha:0, speed:30}
+
   ], // END OF RACE ARRAY
   jobs: [
     {
-      barbarian :
-      {
         name:"Barbarian",
         armor_class:[10,"dex_mod","con_mod"],
         health:12,
         skills:[
           "Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"
         ]
-      }
-    }, {
-      bard :
-      {
+      }, {
         name:"Bard",
         armor_class:[11,"dex_mod"],
         health:8,
@@ -169,79 +325,59 @@ const usersChoices = {
         [
           "Acrobatics", "Animal Handling", "Arcana", "Athletics", "Deception", "History", "Insight", "Intimidation", "Investigation", "Medicine", "Nature", "Perception", "Performace", "Persuasion", "Religion", "Sleight of Hand", "Stealth", "Survival"
         ]
-      }
-     }, {
-       cleric :
-       {
+      }, {
          name:"Cleric",
          armor_class:[14,"dex_mod"],
          health:8,
          skills:
          ["History", "Insight", "Medicine", "Persuasion", "Religion"]
-       }
-     }, {
-       druid : {
+       }, {
          name:"Druid",
          armor_class:[11,"dex_mod"],
          health:8,
          skills:
          ["Arcana", "Animal Handling", "Insight", "Medicine", "Nature", "Perception", "Religion", "Survival"]
-       }
-     }, {
-       fighter : {
-
+       }, {
          name:"Fighter",
          armor_class:[13,"dex_mod"],
          health:10,
-         skills:["Acrobatics", "Animal Handling", "Athletics", "History", "Insight", "Intimidation", "Perception", "Survival"]}
-     }, {
-       monk : {
+         skills:["Acrobatics", "Animal Handling", "Athletics", "History", "Insight", "Intimidation", "Perception", "Survival"]
+       }, {
          name:"Monk",
          armor_class:[10,"dex_mod","wis_mod"],
          health:8,
-         skills:["Acrobatics", "Athletics", "History", "Insight", "Religion", "Stealth"]}
-     }, {
-       paladin : {
+         skills:["Acrobatics", "Athletics", "History", "Insight", "Religion", "Stealth"]
+       }, {
          name:"Paladin",
          armor_class:[13,"dex_mod"],
          health:10,
-         skills:["Athletics", "Insight", "Intimidation", "Medicine", "Persuasion", "Religion"]}
-     },
-     {
-       ranger : {
+         skills:["Athletics", "Insight", "Intimidation", "Medicine", "Persuasion", "Religion"]
+       }, {
          name:"Ranger",
          armor_class:[11,"dex_mod"],
          health:10,
-         skills:["Animal Handling", "Athletics", "Insight", "Investigation", "Nature", "Perception", "Stealth", "Survival"]}
-     },
-     {
-       rogue : {
+         skills:["Animal Handling", "Athletics", "Insight", "Investigation", "Nature", "Perception", "Stealth", "Survival"]
+       }, {
          name:"Rogue",
          armor_class:[11,"dex_mod"],
          health:8,
-         skills:["Acrobatics", "Athletics", "Deception", "Insight", "Intimidation", "Investigation", "Perception", "Persuasion", "Sleight of Hand", "Stealth"]}
-     },
-     {
-       sorcerer : {
+         skills:["Acrobatics", "Athletics", "Deception", "Insight", "Intimidation", "Investigation", "Perception", "Persuasion", "Sleight of Hand", "Stealth"]
+       }, {
          name:"Sorcerer",
          armor_class:[10,"dex_mod","wis_mod"],
          health:6,
-         skills:["Arcana", "Deception", "Insight", "Intimidation", "Persuasion", "Religion"]}
-     },
-     {
-       warlock : {
+         skills:["Arcana", "Deception", "Insight", "Intimidation", "Persuasion", "Religion"]
+       }, {
          name:"Warlock",
          armor_class:[11,"dex_mod"],
          health:8,
-         skills:["Arcana", "Deception", "History", "Intimidation", "Investigation", "Nature", "Religion"]}
-     },
-     {
-       wizard : {
+         skills:["Arcana", "Deception", "History", "Intimidation", "Investigation", "Nature", "Religion"]
+       }, {
          name:"Wizard",
          armor_class:[10,"dex_mod"],
          health:6,
-         skills:["Arcana", "History", "Insight", "Investigation", "Medicine", "Religion"]}
-     }
+         skills:["Arcana", "History", "Insight", "Investigation", "Medicine", "Religion"]
+       }
   ] // End of jobs
 };// END OF usersChoices
 
@@ -265,16 +401,16 @@ console.log(usersChoices);
 //   })
 //   return inputValue +
 // }
-
-// var str_mod = (Math.floor(tot_str/2)-5);
-// var dex_mod = (Math.floor(tot_dex/2)-5);
-// var con_mod = (Math.floor(tot_con/2)-5);
-// var int_mod = (Math.floor(tot_int/2)-5);
-// var wis_mod = (Math.floor(tot_wis/2)-5);
-// var cha_mod = (Math.floor(tot_cha/2)-5);
 //
+// let str_mod = (Math.floor(tot_str/2)-5);
+// let dex_mod = (Math.floor(tot_dex/2)-5);
+// let con_mod = (Math.floor(tot_con/2)-5);
+// let int_mod = (Math.floor(tot_int/2)-5);
+// let wis_mod = (Math.floor(tot_wis/2)-5);
+// let cha_mod = (Math.floor(tot_cha/2)-5);
 
-// var tot_health = CLASSES[class_select].health + con_mod;
+
+// let hp = usersChoices.jobs[class_select].health + con_mod;
 
 
 
@@ -301,4 +437,9 @@ function checkForFilledStats(selector){
     }
   }
   return emptyValues
+}
+
+function auto_complete(character){
+  console.log(character);
+
 }
