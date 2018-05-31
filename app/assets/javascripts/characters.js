@@ -245,7 +245,7 @@ $('#error-list').html("");
     });
 console.log(selectedJob);
     let hp = +selectedJob.health + +conMod;
-    $('#hp-box').append(`${hp}`);
+    $('#hp-span').append(`${hp}`);
 
 
 
@@ -443,3 +443,17 @@ function auto_complete(character){
   console.log(character);
 
 }
+
+
+//ANDY
+
+$(document).on("turbolinks:load", function(){
+  $('#character_race, #character_job').on('change', function(){
+    let race = $('#character_race').val();
+    let job = $('#character_job').val();
+    let pic = `${race}${job}.gif`.toLowerCase();
+    $('#selected-img').attr('src', pic);
+  })
+})
+
+//END ANDY

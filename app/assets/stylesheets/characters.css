@@ -1,3 +1,16 @@
+*{font-family: 'Trade Winds', cursive;
+}
+
+h1{
+  margin-left: 2em;
+}
+body {
+
+  background-image: url("book.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
 #character{
   display: flex;
 }
@@ -13,11 +26,13 @@
   display: flex;
   width: 80%;
   flex-direction: column;
+  margin-left: 1em;
 }
 
 /*  --------stats-----------*/
 #a-column{
   width: 40%;
+  margin-left: 2em;
 }
 #b-column{
   width: 29%;
@@ -42,13 +57,15 @@
   padding: .5em;
   height: 10%;
   border: 1px solid black;
+  margin-top: 1em;
 }
 /* -----------second-column---------- */
 
 /* ---------hp--------- */
 #hp-box{
-  width: 2em;
-  padding: 2em;
+  /* width: 10%; */
+  padding: 1em;
+  margin-bottom:;
   border: 1px solid black;
 }
 
@@ -61,8 +78,18 @@
 .box{
   border:1px solid black;
   padding: 1em;
+  margin-left: 6em;
+  font-family: 'Trade Winds', cursive;
 }
 /* ----------column4-------- */
 #fourth-column{
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  margin-left: 6em;
+}
+
+label{
+  font-size: 2em;
+}
+#accept-stats{
+margin-left: 5em;
 }

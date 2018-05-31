@@ -25,17 +25,17 @@
 
        <div id="stats">
          <div id="a-column">
-           <%= form.label :str%>
+           <%= form.label :Strength%>
           <%= form.text_field :str, class:"char-attr", id:"char-str" %>
-          <%= form.label :dex %>
+          <%= form.label :Dexterity %>
           <%= form.text_field :dex, class:"char-attr", id:"char-dex" %>
-          <%= form.label :int %>
+          <%= form.label :Intelligence %>
           <%= form.text_field :int, class:"char-attr", id:"char-int" %>
-          <%= form.label :con %>
+          <%= form.label :Confidence %>
           <%= form.text_field :con, class:"char-attr", id:"char-con" %>
-          <%= form.label :cha %>
+          <%= form.label :Charisma %>
           <%= form.text_field :cha, class:"char-attr", id:"char-cha" %>
-          <%= form.label :wis %>
+          <%= form.label :Wisdom %>
           <%= form.text_field :wis, class:"char-attr", id:"char-wis" %>
         </div>
          <div id="b-column"></div>
@@ -49,7 +49,7 @@
 
 
      <div id="second-column">
-         <div id="hp-box" >Helath Points</div>
+         <div id="hp-box" >Health Points <span id="hp-span"></span> </div>
        <div id="roll-stats">
          <button type="button" id="roll-dice">ROLL <span id="roll-amount"></span> </button>
          <ul id="rolled-nums" ></ul>
@@ -66,11 +66,15 @@
         <span id="armor-span"></span> </div>
        <div id="prof" class="box">Proficiency <span id="prof-span">2</span> </div>
      </div>
-     <div id="fourth-column" class="box">
-       <div id="selected-char-top">header</div>
+     <div id="fourth-column" >
+       <div id="selected-char-top"></div>
 
        <div id="selected-char-head">
-        <!-- GABES CODE -->
+
+         <div id="selected-char-head">
+          <img id="selected-img" src="" alt="" style="height:600px;>
+        </div>
+
 
        </div>
 

@@ -15,7 +15,7 @@ class CharactersController < ApplicationController
   # GET /characters/new
   def new
     @character = Character.new
-    @jobs = ["Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Paladin", "Ranger", "Rogue", "Sorcerer", "Warlock", "Wizard"]
+    @jobs = ["Bard", "Barbarian", "Cleric", "Druid", "Fighter", "Monk", "Paladin", "Ranger", "Rogue", "Sorcerer", "Warlock", "Wizard"]
     @stats = ["STR","DEX","CON","INT","WIS","CHA"]
     @races = ["Dwarf", "Elf", "Gnome", "Half Elf", "Half Orc", "Halfling", "Human", "Orc"]
   end
