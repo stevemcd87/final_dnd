@@ -1,24 +1,29 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
 
-* Ruby version
+* Ruby version =  2.5.1
 
-* System dependencies
+## To Run App
 
-* Configuration
+ - clone deploy branch
 
-* Database creation
+ - in project folder use 'bundle install'then 'rails s' command in terminal
 
-* Database initialization
+## App's Functionality
 
-* How to run the test suite
+ - the 'Race' select option has extra functionality if 'Elf' is chosen
 
-* Services (job queues, cache servers, search engines, etc.)
+  - the 'Job' select option has extra functionality if 'Wizard' is chosen
 
-* Deployment instructions
+  - the user then could 'Roll' and accept dice then use the rolled values to apply to stats
 
-* ...
+  - After accepting the stats the app auto populates the rest of the form so the user can start playing DND
+
+## Technologies  
+
+ - Rails - for database
+
+ - Jquery - Dice Rolling, form validations, auto-population
+
+ - Spriters - Character Animations
